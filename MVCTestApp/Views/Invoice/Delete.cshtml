@@ -1,0 +1,26 @@
+﻿@model MVCTestAppCommon.TestAppDal.Models.Invoice
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h1>Delete invoice</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                <p>Do you want to delete invoice id - @Model.InvoiceID, biller - @Model.BillerFullName?</p>
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
