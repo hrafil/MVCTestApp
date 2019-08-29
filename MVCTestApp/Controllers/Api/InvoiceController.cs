@@ -46,13 +46,16 @@ namespace MVCTestApp.Controllers.Api
         [CustomAuthorization]
         public HttpResponseMessage PartialUpdate(int? id, [FromBody] PartialInvoice partialInvoice)
         {
-            if (id == null)
+            if (id == null || partialInvoice == null)
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             var invoice = TestAppUnitOfWork.InvoiceRepository.GetByID(id);
             if (invoice == null)
                 return Request.CreateResponse(HttpStatusCode.NotFound);
 
-            if (ModelState.IsValid && partialInvoice.IsAtLeastOnePropertySet())
+            if (!ModelState.IsValid)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+
+            if (partialInvoice.IsAtLeastOnePropertySet())
             {
                 partialInvoice.CopyToInvoice(invoice);
                 TestAppUnitOfWork.InvoiceRepository.Update(invoice);
