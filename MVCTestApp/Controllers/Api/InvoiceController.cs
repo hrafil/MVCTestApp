@@ -67,5 +67,11 @@ namespace MVCTestApp.Controllers.Api
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            TestAppUnitOfWork.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

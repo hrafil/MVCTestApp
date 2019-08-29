@@ -100,5 +100,11 @@ namespace MVCTestApp.Controllers.Mvc
             TestAppUnitOfWork.Save();
             return RedirectToAction("Index");
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            TestAppUnitOfWork.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }
